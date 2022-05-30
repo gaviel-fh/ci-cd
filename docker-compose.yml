@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: sh -c "npm run dev"
+    working_dir: /home/node/app
+    volumes:
+      - ./backend:/home/node/app
+      - /home/node/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_USER=david
+      - MONGO_PASSWORD=pa$$w0rd
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    command: sh -c "npm run start"
+    ports:
+      - 4200:4200
+    working_dir: /home/node/app
+    volumes:
+      - ./frontend:/home/node/app
+      - /home/node/app/node_modules
+      - /home/node/app/.angular
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT=david
+      - MONGO_INITDB_ROOT_PASSWORD=pa$$w0rd
+    volumes:
+      - mongo-db:/data/db
