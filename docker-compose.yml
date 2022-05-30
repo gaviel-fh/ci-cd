@@ -20,6 +20,8 @@ services:
       - NODE_ENV=development
       - MONGO_USER=david
       - MONGO_PASSWORD=pa$$w0rd
+    depends_on:
+      - mongo
 
   frontend:
     build:
@@ -35,11 +37,15 @@ services:
       - /home/node/app/.angular
     depends_on:
       - backend
+      - nginx
 
   mongo:
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT=david
+      - MONGO_INITDB_ROOT_USERNAME=david
       - MONGO_INITDB_ROOT_PASSWORD=pa$$w0rd
     volumes:
       - mongo-db:/data/db
+
+volumes:
+  mongo-db:

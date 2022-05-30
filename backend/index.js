@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const {
   MONGO_USER,
@@ -16,12 +17,11 @@ mongoose
   .connect(mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
   })
   .then(() => console.log("successfully connected to DB"))
   .catch((e) => {
+    console.log("MONGO DB CONNECTION ERROR");
     console.log(e);
-    setTimeout(connectWithRetry, 5000);
   });
 
 app.enable("trust proxy");

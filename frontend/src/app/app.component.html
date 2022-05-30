@@ -1,3 +1,9 @@
 <h1>My Posts! IT WORKS</h1>
 
 <app-posts></app-posts>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+  <input type="text" formControlName="title" />
+  <textarea formControlName="body"></textarea>
+  <button type="submit">Add Post</button>
+</form>
