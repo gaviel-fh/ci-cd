@@ -19,7 +19,7 @@ services:
     environment:
       - NODE_ENV=development
       - MONGO_USER=david
-      - MONGO_PASSWORD=pa$$w0rd
+      - MONGO_PASSWORD=password
     depends_on:
       - mongo
 
@@ -28,8 +28,6 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     command: sh -c "npm run start"
-    ports:
-      - 4200:4200
     working_dir: /home/node/app
     volumes:
       - ./frontend:/home/node/app
@@ -40,12 +38,13 @@ services:
       - nginx
 
   mongo:
-    image: mongo
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     environment:
       - MONGO_INITDB_ROOT_USERNAME=david
-      - MONGO_INITDB_ROOT_PASSWORD=pa$$w0rd
-    volumes:
-      - mongo-db:/data/db
-
-volumes:
-  mongo-db:
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    # volumes:
+    # - mongo-db:/data/db
+# volumes:
+#   mongo-db:
