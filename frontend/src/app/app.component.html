@@ -3,7 +3,7 @@
 <app-posts></app-posts>
 
 <form [formGroup]="form" (submit)="onSubmit()">
-  <input type="text" formControlName="title" />
-  <textarea formControlName="body"></textarea>
+  <input type="text" name="postTitle" formControlName="title" />
+  <textarea name="postBody" formControlName="body"></textarea>
   <button type="submit">Add Post</button>
 </form>
