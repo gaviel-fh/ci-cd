@@ -15,6 +15,7 @@ describe('spec.cy.ts', () => {
 
     cy.contains(postTitle).should('not.exist');
     createNewPost(postTitle, postBody);
+    cy.visit('http://localhost:3000'); // reload page
     cy.contains(postTitle).should('exist');
     deletePostByTitle(postTitle);
   });
