@@ -1,7 +1,7 @@
 export namespace Posts {
   export interface IPostBackendResult {
     data: {
-      posts: IPost[];
+      posts: IBackendPost[];
       results: number;
       status: string;
     };
@@ -12,4 +12,13 @@ export namespace Posts {
     body: string;
     timestamp?: Date;
   }
+
+  export interface IBackendPost {
+    title: string;
+    body: string;
+    _v: number;
+    _id: string;
+  }
+
+  export type PostData = { title: string; body: string };
 }

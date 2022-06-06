@@ -1,1 +1,4 @@
-<app-post-list [posts]="posts$ | async"></app-post-list>
+<app-post-list
+  (onDeletePostById)="deletePostById($event)"
+  [posts]="posts$ | async"
+></app-post-list>

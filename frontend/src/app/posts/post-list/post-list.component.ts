@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Posts } from '../posts.datatype';
 
 @Component({
@@ -8,7 +8,14 @@ import { Posts } from '../posts.datatype';
 })
 export class PostListComponent implements OnInit {
   @Input() public posts: Posts.IPost[] | null | undefined;
+  @Output() public onDeletePostById: EventEmitter<string> =
+    new EventEmitter<string>();
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  public deleteById(id: string): void {
+    this.onDeletePostById.emit(id);
+  }
 }

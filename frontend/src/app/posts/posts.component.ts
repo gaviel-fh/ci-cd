@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, take, tap } from 'rxjs';
 import { Posts } from './posts.datatype';
 import { PostsService } from './posts.service';
 
@@ -14,6 +14,10 @@ export class PostsComponent implements OnInit {
   constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
-    this.posts$ = this.postsService.getAllPosts$();
+    this.posts$ = this.postsService.posts$;
+  }
+
+  public deletePostById(id: string): void {
+    this.postsService.deleteById(id).pipe(take(1)).subscribe();
   }
 }

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
-
-type PostData = { title: string; body: string };
+import { Posts } from './posts/posts.datatype';
+import { PostsService } from './posts/posts.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ type PostData = { title: string; body: string };
 export class AppComponent {
   public form: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private postsService: PostsService) {
     this.form = this.initializeForm();
     this.form.valueChanges.subscribe((value) => {
       console.log(value);
@@ -22,13 +22,11 @@ export class AppComponent {
 
   public onSubmit(): void {
     const postData = this.extractPostData(this.form);
-    this.http
-      .post<PostData>('/api/v1/posts', postData)
-      .pipe(take(1))
-      .subscribe();
+
+    this.postsService.create$(postData).subscribe();
   }
 
-  private extractPostData(form: FormGroup): PostData {
+  private extractPostData(form: FormGroup): Posts.PostData {
     return {
       title: this.form.get('title')?.value,
       body: this.form.get('body')?.value,
