@@ -24,9 +24,7 @@ services:
       - mongo
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+    image: josefkaiser/ci-cd_frontend
     depends_on:
       - backend
       - nginx
