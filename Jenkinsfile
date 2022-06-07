@@ -18,14 +18,21 @@ pipeline {
     stage("Deploy on production Server") {
       steps {
         script {
+          removeExistingDockerData = 'docker system prune -a -f'
           dockerComposeUp = 'docker compose -f docker-compose.prod.yml up -d --build'
           pathToProject = '/root/app/ci-cd'
         }
 
         sshagent(credentials: ['ssh_key_server1']) {
-          sh "ssh -o StrictHostKeyChecking=no root@134.122.76.203 'cd ${pathToProject}; git pull; ${dockerComposeUp}'"
+          sh "ssh -o StrictHostKeyChecking=no root@134.122.76.203 '${removeExistingDockerData}; cd ${pathToProject}; git pull; ${dockerComposeUp}'"
         }
       }
+    }
+  }
+
+  post {
+    always {
+      sh 'docker logout'
     }
   }
 }
