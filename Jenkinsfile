@@ -7,7 +7,7 @@ pipeline {
     stage("Deploy on production Server") {
       steps {
         script {
-          dockerComposeUp = 'docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --no-deps node-app'
+          dockerComposeUp = 'docker compose -f docker-compose.prod.yml up -d --build'
           pathToProject = '/root/app/jenkinsTest'
         }
 
