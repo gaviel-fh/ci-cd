@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { Posts } from './posts/posts.datatype';
 import { PostsService } from './posts/posts.service';
@@ -11,9 +11,9 @@ import { PostsService } from './posts/posts.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder, private postsService: PostsService) {
+  constructor(private fb: UntypedFormBuilder, private postsService: PostsService) {
     this.form = this.initializeForm();
     this.form.valueChanges.subscribe((value) => {
       console.log(value);
@@ -26,14 +26,14 @@ export class AppComponent {
     this.postsService.create$(postData).subscribe();
   }
 
-  private extractPostData(form: FormGroup): Posts.PostData {
+  private extractPostData(form: UntypedFormGroup): Posts.PostData {
     return {
       title: this.form.get('title')?.value,
       body: this.form.get('body')?.value,
     };
   }
 
-  private initializeForm(): FormGroup {
+  private initializeForm(): UntypedFormGroup {
     return this.fb.group({
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
