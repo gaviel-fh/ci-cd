@@ -10,7 +10,7 @@ pipeline {
     stage("Build images and push") {
       steps {
         sh 'cd ./frontend && docker build -t josefkaiser/ci-cd_frontend --file ./Dockerfile.prod .'
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stadin'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
         sh 'docker push josefkaiser/ci-cd_frontend'
       }
     }
@@ -19,7 +19,7 @@ pipeline {
       steps {
         script {
           dockerComposeUp = 'docker compose -f docker-compose.prod.yml up -d --build'
-          pathToProject = '/root/app/jenkinsTest'
+          pathToProject = '/root/app/ci-cd'
         }
 
         sshagent(credentials: ['ssh_key_server1']) {
