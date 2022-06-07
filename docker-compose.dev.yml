@@ -37,15 +37,15 @@ services:
       - backend
       - nginx
 
-  cypress:
-    image: "cypress/included:10.0.2"
-    depends_on:
-      - frontend
-    environment:
-      - CYPRESS_baseUrl=http://frontend:4200
-    working_dir: /cypress
-    volumes:
-      - ./frontend/cypress:/cypress
+  # cypress:
+  #   image: "cypress/included:10.0.2"
+  #   depends_on:
+  #     - frontend
+  #   environment:
+  #     - CYPRESS_baseUrl=http://frontend:4200
+  #   working_dir: /cypress
+  #   volumes:
+  #     - ./frontend/cypress:/cypress
 
   mongo:
     build:

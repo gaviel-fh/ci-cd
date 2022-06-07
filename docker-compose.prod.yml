@@ -24,7 +24,7 @@ services:
       - mongo
 
   frontend:
-    image: josefkaiser/ci-cd_frontend
+    image: josefkaiser/ci-cd_frontend:latest
     depends_on:
       - backend
       - nginx

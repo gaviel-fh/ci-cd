@@ -11,7 +11,7 @@ pipeline {
       steps {
         sh 'cd ./frontend && docker build -t josefkaiser/ci-cd_frontend --file ./Dockerfile.prod .'
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        sh 'docker push josefkaiser/ci-cd_frontend'
+        sh 'docker push josefkaiser/ci-cd_frontend:latest'
       }
     }
 
