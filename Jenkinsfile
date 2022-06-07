@@ -18,7 +18,7 @@ pipeline {
     stage("Deploy on production Server") {
       steps {
         script {
-          removeExistingDockerData = 'docker system prune -a -f'
+          removeExistingDockerData = 'docker kill $(docker ps -q); docker system prune -a -f'
           dockerComposeUp = 'docker compose -f docker-compose.prod.yml up -d --build'
           pathToProject = '/root/app/ci-cd'
         }
