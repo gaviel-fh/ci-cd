@@ -7,6 +7,14 @@ pipeline {
   }
 
   stages {
+    stage("Testing") {
+      steps {
+        sh 'npm install && npm test'
+      }
+    }
+  }
+
+  stages {
     stage("Build images and push") {
       steps {
         sh 'cd ./frontend && docker build -t josefkaiser/ci-cd_frontend --file ./Dockerfile.prod .'
