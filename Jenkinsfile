@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage("Testing") {
       steps {
-        sh 'npm install && npm test'
+        sh 'cd backend; npm install; npm test'
       }
     }
   }
