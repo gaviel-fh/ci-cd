@@ -1,7 +1,8 @@
-FROM node:15
+FROM node:16-alpine
 WORKDIR /home/node/app
 COPY package.json .
 
 RUN npm install
 
 COPY . ./
+EXPOSE 8000
