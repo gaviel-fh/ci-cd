@@ -48,27 +48,27 @@ pipeline {
   stages {
     stage("Testing") {
       steps {
-        echo testing
+        echo "testing"
       }
     }
 
     stage("Build images and push") {
       steps {
-        echo build images
-        echo push images
+        echo "build images"
+        echo "push images"
       }
     }
 
     stage("Deploy on production Server") {
       steps {
-        echo Deploy application to production server
+        echo "Deploy application to production server"
       }
     }
   }
 
   post {
     always {
-      echo cleanup
+      echo "cleanup"
     }
   }
 }
