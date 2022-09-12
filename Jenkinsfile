@@ -46,11 +46,16 @@
 
 pipeline {
   agent any
-  
+
+  tools {nodejs "NodeJs"}
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('josefkaiser-dockerhub')
+  }
+
   stages {
     stage("Testing") {
       steps {
-        echo "testing"
+        sh 'cd backend; npm install; npm test; cd ..'
       }
     }
 
