@@ -78,9 +78,17 @@ pipeline {
           pathToProject = '/root/app/ci-cd'
         }
 
-        sshagent(credentials: ['ssh_key_server1']) {
-          sh "ssh -o StrictHostKeyChecking=no root@134.122.76.203 '${removeExistingDockerData}; cd ${pathToProject}; git pull; ${dockerComposeUp}'; cd .."
+        sshagent(credentials: ['ssh_server1']) {
+          sh "ssh -o StrictHostKeyChecking=no root@134.122.76.203  \
+          ' \
+           ${removeExistingDockerData}; \
+           cd ${pathToProject} && \
+           git pull && \
+           ${dockerComposeUp} \
+          ' && \
+          cd .."
         }
+
       }
     }
   }
